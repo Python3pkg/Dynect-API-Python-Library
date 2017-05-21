@@ -18,8 +18,8 @@ except ImportError:
         
 if sys.version_info[0] == 2:
 
-    from httplib import HTTPConnection, HTTPSConnection
-    from urllib import pathname2url
+    from http.client import HTTPConnection, HTTPSConnection
+    from urllib.request import pathname2url
 
 elif sys.version_info[0] == 3:
     from http.client import HTTPConnection, HTTPSConnection
@@ -271,7 +271,7 @@ class DynectRest(object):
         if self._token is not None:
             headers['Auth-Token'] = self._token
 
-        for key, val in headers.items():
+        for key, val in list(headers.items()):
             self._conn.putheader(key, val)
 
         # Now the arguments
